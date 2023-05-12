@@ -124,6 +124,16 @@ public class GameAIServerUDP extends GameConnectionServer<UUID>
 				UUID clientID = UUID.fromString(messageTokens[1]);
 				sendNPCinfo();
 			}
+
+			//send score over
+			if (messageTokens[0].compareTo("updateHud")==0) {
+				System.out.println("receive score update");
+				UUID clientID = UUID.fromString(messageTokens[1]);
+				String[] score = {messageTokens[2]};
+				sendHudUpdate(clientID,score);
+
+
+			}
 		}
 	}
 	public void handleNearTiming(UUID clientID)
@@ -239,5 +249,23 @@ public class GameAIServerUDP extends GameConnectionServer<UUID>
 	}
 	catch (IOException e)
 	{	e.printStackTrace();
-	}	}
+
+	}
+	}
+
+	public void sendHudUpdate(UUID clientID, String[] score){
+		try{
+			System.out.print("sending updated score to clients");
+			String message = new String("hudupdate," + clientID.toString());
+
+			message += ","+ score[0];
+
+			forwardPacketToAll(message,clientID);
+
+		}catch(IOException e){
+
+			e.printStackTrace();
+		}
+
+	}
 }

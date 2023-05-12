@@ -8,6 +8,7 @@ import java.util.UUID;
 
 public class GameAIServerUDP extends GameConnectionServer<UUID>
 {
+	Boolean flag = false;
 	NPCcontroller npcCtrl;
 	public GameAIServerUDP(int localPort, NPCcontroller npc) throws IOException
 	{	super(localPort, ProtocolType.UDP);
@@ -26,16 +27,18 @@ public class GameAIServerUDP extends GameConnectionServer<UUID>
 	{ System.out.println("couldnt send msg"); e.printStackTrace(); }
 	}
 	public void sendNPCinfo() {
-		try{
-			System.out.println("Updating NPC location");
-			npcCtrl.getNPC().randomizeLocation(1,5);
-			String message = new String("updateNPC");
-			message += "," + (npcCtrl.getNPC()).getX();
-			message += "," + (npcCtrl.getNPC()).getY();
-			message += "," + (npcCtrl.getNPC()).getZ();
-			sendPacketToAll(message);
-		}catch(IOException e){
-			System.out.println("couldnt send msg"); e.printStackTrace();
+		if(flag) {
+			try {
+				System.out.println("Updating NPC location");
+				String message = new String("updateNPC");
+				message += "," + (npcCtrl.getNPC()).getX();
+				message += "," + (npcCtrl.getNPC()).getY();
+				message += "," + (npcCtrl.getNPC()).getZ();
+				sendPacketToAll(message);
+			} catch (IOException e) {
+				System.out.println("couldnt send msg");
+				e.printStackTrace();
+			}
 		}
 	}
 	public void sendNPCstart(UUID clientID)
@@ -43,6 +46,7 @@ public class GameAIServerUDP extends GameConnectionServer<UUID>
 		try{
 			System.out.println("Trying to confirm create NPC");
 			String message = new String("createNPC");
+
 			message += "," + (npcCtrl.getNPC()).getX();
 			message += "," + (npcCtrl.getNPC()).getY();
 			message += "," + (npcCtrl.getNPC()).getZ();
@@ -113,6 +117,7 @@ public class GameAIServerUDP extends GameConnectionServer<UUID>
 			{ System.out.println("server got a needNPC message");
 				UUID clientID = UUID.fromString(messageTokens[1]);
 				sendNPCstart(clientID);
+				flag = true;
 			}
 			// Case where server receives notice that an av is close to the npc
 			// Received Message Format: (isnear,id)

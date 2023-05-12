@@ -33,7 +33,7 @@ public class NPCcontroller
 	public void setupNPCs()
 	{ 
 		npc = new NPC();
-		npc.randomizeLocation(rn.nextInt(40),rn.nextInt(40));
+		npc.randomizeLocation(rn.nextInt(100),rn.nextInt(100));
 	}
 	public void npcLoop()
 	{ 
@@ -45,7 +45,7 @@ public class NPCcontroller
 			{
 				lastTickUpdateTime = currentTime;
 				npc.updateLocation();
-				//server.sendNPCinfo();
+				server.sendNPCinfo();
 			}
 			if(elapsedThinkMilliSecs >= 250.0f)
 			{ 

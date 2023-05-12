@@ -16,6 +16,7 @@ public class NetworkingServer
 		catch (IOException e) {
 			System.out.println("server didn't start"); e.printStackTrace();
 		}
+
 		npcCtrl.start(UDPServer);
 	}
 	public static void main(String[] args)

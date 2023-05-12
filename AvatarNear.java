@@ -1,6 +1,7 @@
 
 import tage.ai.behaviortrees.BTCondition;
 public class AvatarNear extends BTCondition
+    ///push
 {
     NPC npc;
     NPCcontroller npcc;

@@ -29,7 +29,7 @@ public class GameAIServerUDP extends GameConnectionServer<UUID>
 	public void sendNPCinfo() {
 		if(flag) {
 			try {
-				System.out.println("Updating NPC location");
+
 				String message = new String("updateNPC");
 				message += "," + (npcCtrl.getNPC()).getX();
 				message += "," + (npcCtrl.getNPC()).getY();
@@ -132,7 +132,7 @@ public class GameAIServerUDP extends GameConnectionServer<UUID>
 
 			//send score over
 			if (messageTokens[0].compareTo("updateHud")==0) {
-				System.out.println("receive score update");
+				System.out.println("receive new score from client");
 				UUID clientID = UUID.fromString(messageTokens[1]);
 				String[] score = {messageTokens[2]};
 				sendHudUpdate(clientID,score);
@@ -260,7 +260,7 @@ public class GameAIServerUDP extends GameConnectionServer<UUID>
 
 	public void sendHudUpdate(UUID clientID, String[] score){
 		try{
-			System.out.print("sending updated score to clients");
+			System.out.print("sending new score to client");
 			String message = new String("hudupdate," + clientID.toString());
 
 			message += ","+ score[0];

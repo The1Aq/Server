@@ -17,5 +17,7 @@ public class GetSmall  extends BTCondition {
     protected boolean check() {
 
         return true;
+
+
     }
 }

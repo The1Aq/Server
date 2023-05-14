@@ -7,13 +7,13 @@ public class NPC
     public NPC()
     {
         locationX= 0.0;
-        locationY=0.0;
+        locationY=1.002f;
         locationZ=0.0;
     }
     public void randomizeLocation(int seedX, int seedZ)
     {
         locationX = ((double)seedX)/4.0 - 5.0;
-        locationY = 0;
+        locationY = 1.002f;
         locationZ = ((double)seedZ)/4.0 - 5.0;
     }
     public double getX() { return locationX; }
@@ -28,8 +28,8 @@ public class NPC
     public double getSize() { return size; }
     public void updateLocation()
     {
-        if (locationX > 10) dir=-0.1;
-        if (locationX < -10) dir=0.1;
+        if (locationX > 10) dir=-0.01;
+        if (locationX < -10) dir=0.01;
         locationX = locationX + dir;
     }
 }

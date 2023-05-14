@@ -34,7 +34,13 @@ public class GameAIServerUDP extends GameConnectionServer<UUID>
 				message += "," + (npcCtrl.getNPC()).getX();
 				message += "," + (npcCtrl.getNPC()).getY();
 				message += "," + (npcCtrl.getNPC()).getZ();
+				if(npcCtrl.nearFlag){
+					message += "," + 1;
+				}else{
+					message += "," + 2;
+				}
 				sendPacketToAll(message);
+
 			} catch (IOException e) {
 				System.out.println("couldnt send msg");
 				e.printStackTrace();
@@ -124,7 +130,10 @@ public class GameAIServerUDP extends GameConnectionServer<UUID>
 			if(messageTokens[0].compareTo("isnear") == 0)
 			{ UUID clientID = UUID.fromString(messageTokens[1]);
 				handleNearTiming(clientID);
+
+
 			}
+
 			if(messageTokens[0].compareTo("needNPCUp") == 0){
 				UUID clientID = UUID.fromString(messageTokens[1]);
 				sendNPCinfo();
